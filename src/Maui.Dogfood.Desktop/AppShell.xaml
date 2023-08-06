@@ -1,0 +1,112 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="Maui.Dogfood.Desktop.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:Maui.Dogfood.Desktop"
+    Shell.NavBarIsVisible="False"
+    Shell.FlyoutBehavior="Locked"
+    FlyoutWidth="96"
+    FlyoutBackgroundColor="#101419"
+    >
+
+    <Shell.Resources>
+        <ControlTemplate x:Key="MenuItemTemplate">
+            <Grid RowDefinitions="Auto">
+
+                <VisualStateManager.VisualStateGroups>
+                    <VisualStateGroupList>
+                        <VisualStateGroup x:Name="CheckedStates">
+                            <VisualState x:Name="Checked">
+                                <VisualState.Setters>
+                                    <Setter TargetName="OuterBorder" Property="Background" Value="#1d232a" />
+                                    <Setter TargetName="OuterBorder" Property="Border.StrokeThickness" Value="1" />
+                                </VisualState.Setters>
+                            </VisualState>
+
+                            <VisualState x:Name="Unchecked">
+                                <VisualState.Setters>
+                                    <Setter TargetName="OuterBorder" Property="Background" Value="Transparent" />
+                                    <Setter TargetName="OuterBorder" Property="Border.StrokeThickness" Value="0" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </VisualStateManager.VisualStateGroups>
+
+                <Border x:Name="OuterBorder" 
+                        Background="Transparent"
+                        Margin="10,0,0,0"
+                        HorizontalOptions="Fill"
+                        HeightRequest="224"
+                        Stroke="{StaticResource DarkBg1Brush}" 
+                        StrokeThickness="0"
+                        >
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="12,0,12,0" />
+                    </Border.StrokeShape>
+                </Border>
+
+                <ContentPresenter x:Name="CP"/>
+            </Grid>
+        </ControlTemplate>
+     </Shell.Resources>
+
+    <Shell.FlyoutContentTemplate>
+        <DataTemplate>
+            <VerticalStackLayout
+                  RadioButtonGroup.GroupName="Menu"
+                  RadioButtonGroup.SelectedValue="{Binding SelectedRoute}"
+                  >
+                <VerticalStackLayout.Resources>
+                    <Style TargetType="RadioButton">
+                        <Setter Property="ControlTemplate" Value="{StaticResource MenuItemTemplate}"/>
+                    </Style>
+                </VerticalStackLayout.Resources>
+                 <RadioButton
+                    Value="MainPage"
+                    Grid.Row="1" 
+                    IsChecked="True"
+                    HeightRequest="256"
+                    CheckedChanged="OnMenuItemChanged"
+                    >
+                    <RadioButton.Content>
+                        <Label Text="🐶&#x0a;🦴"
+                            FontSize="48"
+                            VerticalTextAlignment="Center"
+                            HorizontalTextAlignment="Center"
+                            >
+                        </Label>
+                    </RadioButton.Content>
+                </RadioButton>
+
+                <RadioButton
+                    Value="OutputPage"
+                    Grid.Row="2"
+                    HeightRequest="256"
+                    CheckedChanged="OnMenuItemChanged"
+                    >
+                    <RadioButton.Content>
+                        <Label Text="🖥️&#x0a;🗒️"
+                            FontSize="48"
+                            VerticalTextAlignment="Center"
+                            HorizontalTextAlignment="Center"
+                            >
+                        </Label>
+                    </RadioButton.Content>
+                </RadioButton>
+            </VerticalStackLayout>
+        </DataTemplate>
+    </Shell.FlyoutContentTemplate>
+
+
+    <FlyoutItem Title="🐶 🦴" Route="MainPage">
+        <ShellContent ContentTemplate="{DataTemplate local:MainPage}" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="🖥️ 🗒️" Route="OutputPage">
+        <ShellContent ContentTemplate="{DataTemplate local:OutputPage}" />
+    </FlyoutItem>
+
+</Shell>
+

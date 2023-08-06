@@ -1,0 +1,175 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="Maui.Dogfood.Desktop.MainPage"
+    BackgroundColor="#1d232a"
+    >
+
+    <ScrollView>
+        <VerticalStackLayout
+            Spacing="60"
+            Padding="20,20"
+            VerticalOptions="Start"
+            >
+
+            <HorizontalStackLayout
+                Spacing="20"
+                HorizontalOptions="Center"
+                >
+
+                <Image
+                    Source="dotnet_bot.png"
+                    HeightRequest="64"
+                    WidthRequest="64"
+                    VerticalOptions="Center"
+                    >
+                </Image>
+
+                <Label
+                    Text="Hello, Dogfooder!"
+                    FontSize="24"
+                    VerticalOptions="Center"
+                    >
+                </Label>
+            </HorizontalStackLayout>
+
+            <Label
+                Text="Enter the product commits you want to install and click Install."
+                FontSize="18"
+                VerticalOptions="Center"
+                >
+            </Label>
+
+            <HorizontalStackLayout
+                Spacing="20"
+                Padding="40,0"
+                HorizontalOptions="Start"
+                >
+
+                <Label
+                    Text="Android commit:"
+                    FontSize="16"
+                    VerticalOptions="Center"
+                    >
+                </Label>
+
+                <Entry
+                    x:Name="AndroidEntry"
+                    Placeholder="commit"
+                    VerticalOptions="Center"
+                    MinimumWidthRequest="400"
+                    TextChanged="OnAndroidEntryTextChanged"
+                   >
+                </Entry>
+            </HorizontalStackLayout>
+
+            <HorizontalStackLayout
+                Spacing="20"
+                Padding="40,0"
+                HorizontalOptions="Start"
+                >
+
+                <Label
+                    Text="Macios commit:"
+                    FontSize="16"
+                    VerticalOptions="Center"
+                    >
+                </Label>
+
+                <Entry
+                    x:Name="MaciosEntry"
+                    Placeholder="commit"
+                    VerticalOptions="Center"
+                    MinimumWidthRequest="400"
+                    TextChanged="OnMaciOSEntryTextChanged"
+                   >
+                </Entry>
+            </HorizontalStackLayout>
+
+            <HorizontalStackLayout
+                Spacing="20"
+                Padding="40,0"
+                HorizontalOptions="Start"
+                >
+
+                <Label
+                    Text="Maui commit:"
+                    FontSize="16"
+                    VerticalOptions="Center"
+                    >
+                </Label>
+
+                <Entry
+                    x:Name="MauiEntry"
+                    Placeholder="commit"
+                    VerticalOptions="Center"
+                    MinimumWidthRequest="400"
+                    TextChanged="OnMauiEntryTextChanged"
+                   >
+                </Entry>
+            </HorizontalStackLayout>
+
+            <HorizontalStackLayout
+                Spacing="20"
+                Padding="40,0"
+                HorizontalOptions="Start"
+                >
+
+                <Label
+                    Text="Feeds:"
+                    FontSize="16"
+                    VerticalOptions="Center"
+                    >
+                </Label>
+
+                <Editor
+                    x:Name="FeedsEditor"
+                    Placeholder=""
+                    VerticalOptions="Center"
+                    MinimumWidthRequest="800"
+                    MinimumHeightRequest="100"
+                    BackgroundColor="#101419"
+                    TextChanged="OnFeedsEditorTextChanged"
+                   >
+                </Editor>
+            </HorizontalStackLayout>
+
+
+            <VerticalStackLayout
+                Spacing="40"
+                Padding="0,20"
+                HorizontalOptions="Center"
+                >
+
+                <Button
+                    x:Name="InstallButton"
+                    Text="Install Workloads"
+                    Clicked="InstallButton_Clicked"
+                    MinimumWidthRequest="200"
+                    MaximumWidthRequest="200"
+                    >
+                </Button>
+
+                <Label
+                    x:Name="InstallLabel"
+                    Text="Installing workloads..."
+                    IsVisible="false"
+                    FontSize="16"
+                    >
+                </Label>
+
+                <ActivityIndicator
+                    x:Name="InstallIndicator"
+                    IsRunning="false"
+                    Color="MediumPurple"
+                    Scale="2"
+                    >
+                </ActivityIndicator>
+            </VerticalStackLayout>
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>
+

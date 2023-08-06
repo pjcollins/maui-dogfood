@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="Maui.Dogfood.Desktop.OutputPage"
+    BackgroundColor="#1d232a"
+    >
+
+    <ScrollView>
+        <Grid
+            Padding="20,20"
+            RowSpacing="20"
+            >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40"/>
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Button
+                Grid.Row="0"
+                Text="Get output"
+                FontSize="18"
+                HorizontalOptions="Start"
+                Clicked="OutputButton_Clicked"
+                >
+            </Button>
+
+            <Editor
+                Grid.Row="1"
+                x:Name="OutputEditor"
+                Text=""
+                FontSize="14"
+                HorizontalOptions="Fill"
+                VerticalOptions="Start"
+                BackgroundColor="#101419"
+                AutoSize="TextChanges"
+                >
+            </Editor>
+
+        </Grid>
+    </ScrollView>
+
+</ContentPage>
+

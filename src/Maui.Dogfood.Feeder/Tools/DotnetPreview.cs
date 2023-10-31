@@ -5,7 +5,7 @@ namespace Maui.Dogfood.Feeder;
 
 public class DotnetPreview
 {
-    static readonly string DotnetTool = Path.Combine(Env.DotnetPreviewDirectory, "dotnet");
+    public static readonly string DotnetTool = Path.Combine(Env.DotnetPreviewDirectory, "dotnet");
     const int DEFAULT_TIMEOUT = 900;
 
     public static bool Build(string projectFile, string config, string target = "", string framework = "", IEnumerable<string>? properties = null, string binlogPath = "")
@@ -50,9 +50,9 @@ public class DotnetPreview
         return exitCode == 0;
     }
 
-    public static bool Run(string command, string args, int timeoutinSeconds = DEFAULT_TIMEOUT)
+    public static bool Run(string command, string args, int timeoutInSeconds = DEFAULT_TIMEOUT)
     {
-        var runOutput = RunForOutput(command, args, out int exitCode, timeoutinSeconds);
+        var runOutput = RunForOutput(command, args, out int exitCode, timeoutInSeconds);
         if (exitCode != 0)
             Console.WriteLine(runOutput);
 

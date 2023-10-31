@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     x:Class="Maui.Dogfood.Desktop.OutputPage"
     BackgroundColor="#1d232a"
+    Shell.NavBarIsVisible="False"
     >
 
     <ScrollView>

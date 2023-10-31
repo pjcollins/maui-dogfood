@@ -10,7 +10,7 @@ public partial class AppShell : Shell
         Routing.RegisterRoute(nameof(OutputPage), typeof(OutputPage));
     }
 
-    string _selectedRoute;
+    string _selectedRoute = string.Empty;
     public string SelectedRoute
     {
         get {

@@ -5,7 +5,8 @@ namespace Maui.Dogfood.Desktop;
 
 public class Logger : TextWriter
 {
-    public static string LogFile { get; set; }
+    public static string LogFile { get; set; } = string.Empty;
+
     static ReaderWriterLock locker = new ReaderWriterLock();
 
     public Logger()
@@ -22,12 +23,14 @@ public class Logger : TextWriter
         }
     }
 
-    public override void WriteLine(string text)
+    public override void WriteLine(string? text)
     {
         try
         {
-            locker.AcquireWriterLock(int.MaxValue);
-            File.AppendAllLines(LogFile, new string[] { text });
+            if (!string.IsNullOrEmpty(text)) {
+                locker.AcquireWriterLock(int.MaxValue);
+                File.AppendAllLines(LogFile, new string[] { text });
+            }
         }
         catch
         {

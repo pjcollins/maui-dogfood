@@ -5,11 +5,13 @@ namespace Maui.Dogfood.Desktop;
 
 public partial class MainPage : ContentPage
 {
-    public string AndroidCommit { get; set; }
+    public string SdkArchivePath { get; set; } = string.Empty;
 
-    public string MaciOSCommit { get; set; }
+    public string AndroidCommit { get; set; } = string.Empty;
 
-    public string MauiCommit { get; set; }
+    public string MaciOSCommit { get; set; } = string.Empty;
+
+    public string MauiCommit { get; set; } = string.Empty;
 
     public static List<string> Feeds { get; set; } = new List<string>();
 
@@ -18,6 +20,11 @@ public partial class MainPage : ContentPage
     {
         InitializeComponent();
         Console.SetOut(new Logger());
+    }
+
+    public void OnSdkArchiveEntryTextChanged(object sender, TextChangedEventArgs e)
+    {
+        SdkArchivePath = SdkArchiveEntry.Text;
     }
 
     public void OnAndroidEntryTextChanged(object sender, TextChangedEventArgs e)
@@ -39,7 +46,7 @@ public partial class MainPage : ContentPage
     {
         Feeds.Clear();
         using var sr = new StringReader(FeedsEditor.Text);
-        string line;
+        string? line;
         while ((line = sr.ReadLine()) != null)
         {
             if (!string.IsNullOrWhiteSpace(line))
@@ -52,6 +59,13 @@ public partial class MainPage : ContentPage
         Logger.StartNewLogFile();
         UpdateInstallIndicator(true);
         Console.WriteLine("Installing workloads...");
+
+        if (!string.IsNullOrWhiteSpace(SdkArchivePath)) {
+            var sdkInstaller = new SdkInstaller(SdkArchivePath);
+            if (!sdkInstaller.Install()) {
+                throw new Exception($"Failed to extract SDK archive: {SdkArchivePath}");
+            }
+        }
 
         var workloadsToInstall = new List<Workload>();
         if (!string.IsNullOrWhiteSpace(AndroidCommit))

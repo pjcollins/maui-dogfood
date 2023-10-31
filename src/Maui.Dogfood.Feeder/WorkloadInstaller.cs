@@ -9,6 +9,7 @@ public class WorkloadInstaller
     public IEnumerable<Workload> Workloads { get; set; }
 
     List<string> Sources = new List<string> {
+        "https://api.nuget.org/v3/index.json",
         "https://pkgs.dev.azure.com/dnceng/public/_packaging/dotnet7/nuget/v3/index.json",
         "https://pkgs.dev.azure.com/dnceng/public/_packaging/dotnet8/nuget/v3/index.json",
     };

@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     x:Class="Maui.Dogfood.Desktop.MainPage"
     BackgroundColor="#1d232a"
+    Shell.NavBarIsVisible="False"
     >
 
     <ScrollView>
@@ -40,6 +41,29 @@
                 VerticalOptions="Center"
                 >
             </Label>
+
+            <HorizontalStackLayout
+                Spacing="20"
+                Padding="40,0"
+                HorizontalOptions="Start"
+                >
+
+                <Label
+                    Text="SDK installer path:"
+                    FontSize="16"
+                    VerticalOptions="Center"
+                    >
+                </Label>
+
+                <Entry
+                    x:Name="SdkArchiveEntry"
+                    Placeholder="path/to/sdk.pkg"
+                    VerticalOptions="Center"
+                    MinimumWidthRequest="400"
+                    TextChanged="OnSdkArchiveEntryTextChanged"
+                   >
+                </Entry>
+            </HorizontalStackLayout>
 
             <HorizontalStackLayout
                 Spacing="20"

@@ -14,7 +14,7 @@ public static class Env
 
     public static readonly string DotnetPreviewDirectory = Path.Combine(RootDirectory, "dotnet");
 
-    public static readonly string DotnetPreviewManifestDirectory = Path.Combine(DotnetPreviewDirectory, "sdk-manifests", GetSdkBand ());
+    public static string DotnetPreviewManifestDirectory => Path.Combine(DotnetPreviewDirectory, "sdk-manifests", GetSdkBand ());
 
     public const string GitHubTokenEnvVarName = "MAUI_DOGFOOD_GH_TOKEN";
 

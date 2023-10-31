@@ -66,9 +66,12 @@ public class ArtifactClient : HttpClient
 
     public async Task DownloadNuGetsAsync(string org, string repo, string commit, string destination)
     {
-        if (Directory.Exists(destination))
-            Directory.Delete(destination, true);
-
+        if (Directory.Exists(destination)) {
+            if (Directory.GetFiles(destination, "*.nupkg").Length > 0)
+                return;
+            else
+                Directory.Delete(destination, true);
+        }
         Directory.CreateDirectory(destination);
 
         var artifactsJsonUrl = await GetNuGetArtifactStatusTargetUrlAsync(org, repo, commit);

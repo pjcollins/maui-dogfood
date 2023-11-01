@@ -17,7 +17,6 @@ jobs:
         uses: actions/setup-dotnet@v3
         with:
           dotnet-version: 7.x
-          cache: true
 
       - name: build Maui.Dogfood.Cli.csproj
         run: dotnet build ${{ vars.GITHUB_WORKSPACE }}/src/Maui.Dogfood.Cli/Maui.Dogfood.Cli.csproj

@@ -25,7 +25,7 @@ class Program
         if (!string.IsNullOrWhiteSpace(opts.SdkArchivePath)) {
             var sdkInstaller = new SdkInstaller(opts.SdkArchivePath);
             if (!sdkInstaller.Install()) {
-                throw new Exception($"Failed to extract SDK archive: {opts.SdkArchivePath}");
+                throw new Exception($"Failed to extract SDK archive: '{opts.SdkArchivePath}'!");
             }
         }
 

@@ -177,8 +177,8 @@
 
                 <Label
                     x:Name="InstallLabel"
-                    Text="Installing workloads..."
-                    IsVisible="false"
+                    Text=""
+                    IsVisible="true"
                     FontSize="16"
                     >
                 </Label>

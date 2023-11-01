@@ -13,6 +13,9 @@ public class SdkInstaller
 
     public bool Install ()
     {
+        if (!File.Exists (SdkArchivePath))
+            return false;
+
         var extractor = GetExtractor ();
         return extractor.Unzip (SdkArchivePath);
     }
@@ -22,11 +25,11 @@ public class SdkInstaller
         if (SdkArchivePath.EndsWith (".pkg", StringComparison.OrdinalIgnoreCase))
             return new PkgExtractor ();
         else if (SdkArchivePath.EndsWith (".msi", StringComparison.OrdinalIgnoreCase))
-            return new MsiExctractor ();
+            return new MsiExtractor ();
         else if (SdkArchivePath.EndsWith (".zip", StringComparison.OrdinalIgnoreCase))
             return new ZipExtractor ();
         else
-            throw new Exception ($"Unknown SDK archive type: {SdkArchivePath}");
+            throw new Exception ($"Unable to extract unknown SDK archive type: '{SdkArchivePath}'!");
     }
 
 }

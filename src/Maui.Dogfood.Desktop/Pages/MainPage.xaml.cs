@@ -57,13 +57,18 @@ public partial class MainPage : ContentPage
     async void InstallButton_Clicked(object sender, EventArgs e)
     {
         Logger.StartNewLogFile();
-        UpdateInstallIndicator(true);
-        Console.WriteLine("Installing workloads...");
+        UpdateInstallIndicator(true, "Installing...");
 
         if (!string.IsNullOrWhiteSpace(SdkArchivePath)) {
-            var sdkInstaller = new SdkInstaller(SdkArchivePath);
-            if (!sdkInstaller.Install()) {
-                throw new Exception($"Failed to extract SDK archive: {SdkArchivePath}");
+            try {
+                var sdkInstaller = new SdkInstaller(SdkArchivePath);
+                if (!sdkInstaller.Install()) {
+                    UpdateInstallIndicator(false, $"Failed to extract SDK archive: '{SdkArchivePath}'!");
+                    return;
+                }
+            } catch (Exception ex) {
+                UpdateInstallIndicator(false, $"Failed to extract SDK archive: '{SdkArchivePath}'!\n{ex}");
+                return;
             }
         }
 
@@ -87,27 +92,20 @@ public partial class MainPage : ContentPage
         try
         {
             await installer.InstallAsync();
-            UpdateInstallIndicator(false);
-            Console.WriteLine("Workload installation complete!");
-            InstallLabel.Text = "Workload installation complete!";
-            InstallLabel.IsVisible = true;
+            UpdateInstallIndicator(false, "Install complete.");
         }
         catch (Exception ex)
         {
-            UpdateInstallIndicator(false);
-            Console.WriteLine($"Workload installation failed with:\n{ex};");
-            InstallLabel.Text = $"Workload installation failed with:\n {ex.Message}";
-            InstallLabel.IsVisible = true;
+            UpdateInstallIndicator(false, $"Install failed with:\n{ex}");
         }
     }
 
-    public void UpdateInstallIndicator(bool isStarting)
+    void UpdateInstallIndicator(bool isInstalling, string text)
     {
-        InstallButton.IsEnabled = !isStarting;
-        InstallLabel.Text = "Installing workloads...";
-        InstallLabel.IsVisible = isStarting;
-        InstallIndicator.IsRunning = isStarting;
+        InstallButton.IsEnabled = !isInstalling;
+        Console.WriteLine(text);
+        InstallLabel.Text = text;
+        InstallIndicator.IsRunning = isInstalling;
     }
-
 }
 

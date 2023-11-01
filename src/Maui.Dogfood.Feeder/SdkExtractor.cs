@@ -52,7 +52,7 @@ public class PkgExtractor : SdkExtractor
     }
 }
 
-public class MsiExctractor : SdkExtractor
+public class MsiExtractor : SdkExtractor
 {
     public override bool Unzip (string file)
     {

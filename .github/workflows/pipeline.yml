@@ -19,10 +19,10 @@ jobs:
           dotnet-version: 7.x
 
       - name: build Maui.Dogfood.Cli.csproj
-        run: dotnet build ${{ vars.GITHUB_WORKSPACE }}/src/Maui.Dogfood.Cli/Maui.Dogfood.Cli.csproj
+        run: dotnet build src/Maui.Dogfood.Cli/Maui.Dogfood.Cli.csproj
 
       - name: upload artifacts
         uses: actions/upload-artifact@v3
         with:
           name: artifacts
-          path: ${{ vars.GITHUB_WORKSPACE }}/src/Maui.Dogfood.Cli/bin
+          path: src/Maui.Dogfood.Cli/bin

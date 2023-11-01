@@ -5,11 +5,13 @@ namespace Maui.Dogfood.Desktop;
 
 public partial class MainPage : ContentPage
 {
-    public string AndroidCommit { get; set; }
+    public string SdkArchivePath { get; set; } = string.Empty;
 
-    public string MaciOSCommit { get; set; }
+    public string AndroidCommit { get; set; } = string.Empty;
 
-    public string MauiCommit { get; set; }
+    public string MaciOSCommit { get; set; } = string.Empty;
+
+    public string MauiCommit { get; set; } = string.Empty;
 
     public static List<string> Feeds { get; set; } = new List<string>();
 
@@ -18,6 +20,11 @@ public partial class MainPage : ContentPage
     {
         InitializeComponent();
         Console.SetOut(new Logger());
+    }
+
+    public void OnSdkArchiveEntryTextChanged(object sender, TextChangedEventArgs e)
+    {
+        SdkArchivePath = SdkArchiveEntry.Text;
     }
 
     public void OnAndroidEntryTextChanged(object sender, TextChangedEventArgs e)
@@ -39,7 +46,7 @@ public partial class MainPage : ContentPage
     {
         Feeds.Clear();
         using var sr = new StringReader(FeedsEditor.Text);
-        string line;
+        string? line;
         while ((line = sr.ReadLine()) != null)
         {
             if (!string.IsNullOrWhiteSpace(line))
@@ -50,8 +57,20 @@ public partial class MainPage : ContentPage
     async void InstallButton_Clicked(object sender, EventArgs e)
     {
         Logger.StartNewLogFile();
-        UpdateInstallIndicator(true);
-        Console.WriteLine("Installing workloads...");
+        UpdateInstallIndicator(true, "Installing...");
+
+        if (!string.IsNullOrWhiteSpace(SdkArchivePath)) {
+            try {
+                var sdkInstaller = new SdkInstaller(SdkArchivePath);
+                if (!sdkInstaller.Install()) {
+                    UpdateInstallIndicator(false, $"Failed to extract SDK archive: '{SdkArchivePath}'!");
+                    return;
+                }
+            } catch (Exception ex) {
+                UpdateInstallIndicator(false, $"Failed to extract SDK archive: '{SdkArchivePath}'!\n{ex}");
+                return;
+            }
+        }
 
         var workloadsToInstall = new List<Workload>();
         if (!string.IsNullOrWhiteSpace(AndroidCommit))
@@ -73,27 +92,20 @@ public partial class MainPage : ContentPage
         try
         {
             await installer.InstallAsync();
-            UpdateInstallIndicator(false);
-            Console.WriteLine("Workload installation complete!");
-            InstallLabel.Text = "Workload installation complete!";
-            InstallLabel.IsVisible = true;
+            UpdateInstallIndicator(false, "Install complete.");
         }
         catch (Exception ex)
         {
-            UpdateInstallIndicator(false);
-            Console.WriteLine($"Workload installation failed with:\n{ex};");
-            InstallLabel.Text = $"Workload installation failed with:\n {ex.Message}";
-            InstallLabel.IsVisible = true;
+            UpdateInstallIndicator(false, $"Install failed with:\n{ex}");
         }
     }
 
-    public void UpdateInstallIndicator(bool isStarting)
+    void UpdateInstallIndicator(bool isInstalling, string text)
     {
-        InstallButton.IsEnabled = !isStarting;
-        InstallLabel.Text = "Installing workloads...";
-        InstallLabel.IsVisible = isStarting;
-        InstallIndicator.IsRunning = isStarting;
+        InstallButton.IsEnabled = !isInstalling;
+        Console.WriteLine(text);
+        InstallLabel.Text = text;
+        InstallIndicator.IsRunning = isInstalling;
     }
-
 }
 

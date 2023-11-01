@@ -11,7 +11,7 @@ public partial class OutputPage : ContentPage
 
     void OutputButton_Clicked(object sender, EventArgs e)
     {
-        Application.Current.Dispatcher.Dispatch(() => OutputEditor.Text = Logger.ReadLogFile());
+        Application.Current?.Dispatcher.Dispatch(() => OutputEditor.Text = Logger.ReadLogFile());
     }
 }
 

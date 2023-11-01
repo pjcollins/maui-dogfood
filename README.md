@@ -33,9 +33,8 @@ maui-previews
 ## 🦴 How to Dogfood
 
  * Visit the .NET Release Tracker to find the .NET SDK artifacts and feed for the release you want to dogfood.
- * Download the appropriate .NET SDK archive from 'Published artifacts' -> 'shipping' -> 'assets' -> 'Sdk' -> '$version' -> 'dotnet-sdk-$version-$platform.*'
- * Extract the archive into the `dotnet` folder in your dogfood root folder (e.g. `maui-previews/dotnet`).
- * Run the tool/app and select the Android, MaciOS, and Maui commits you want to install.
+ * Download the appropriate .NET SDK installer from 'Published artifacts' -> 'shipping' -> 'assets' -> 'Sdk' -> '$version' -> 'dotnet-sdk-$version-$platform.[pkg|msi]'
+ * Run the tool/app, set the path to the preview SDK you downloaded, and select the Android, MaciOS, and Maui commits you want to install.
  * Create a template, build it, and run it using the `./maui-previews/dotnet/dotnet` tool.
 
 #### VS Code

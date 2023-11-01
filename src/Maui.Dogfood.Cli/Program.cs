@@ -22,6 +22,13 @@ class Program
 
     static async Task RunWithOptions(Options opts)
     {
+        if (!string.IsNullOrWhiteSpace(opts.SdkArchivePath)) {
+            var sdkInstaller = new SdkInstaller(opts.SdkArchivePath);
+            if (!sdkInstaller.Install()) {
+                throw new Exception($"Failed to extract SDK archive: '{opts.SdkArchivePath}'!");
+            }
+        }
+
         var workloadsToInstall = new List<Workload>();
         if (!string.IsNullOrWhiteSpace(opts.AndroidCommit))
             workloadsToInstall.Add(new AndroidWorkload { GithubCommit = opts.AndroidCommit });
@@ -57,6 +64,9 @@ class Options
 
     [Option("maui", HelpText = "Maui Commit hash to install.")]
     public string MauiCommit { get; set; } = string.Empty;
+
+    [Option("sdk-archive", HelpText = ".NET SDK archive to extract and install workloads in.")]
+    public string SdkArchivePath { get; set; } = string.Empty;
 
     [Option('f', "feed", HelpText = "Feeds to use for installation.")]
     public IEnumerable<string> Feeds { get; set; } = new List<string>();

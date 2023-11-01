@@ -34,13 +34,12 @@
                     </VisualStateGroupList>
                 </VisualStateManager.VisualStateGroups>
 
-                <Border x:Name="OuterBorder" 
+                <Border x:Name="OuterBorder"
                         Background="Transparent"
                         Margin="10,0,0,0"
                         HorizontalOptions="Fill"
                         HeightRequest="224"
-                        Stroke="{StaticResource DarkBg1Brush}" 
-                        StrokeThickness="0"
+                        StrokeThickness="1"
                         >
                     <Border.StrokeShape>
                         <RoundRectangle CornerRadius="12,0,12,0" />
@@ -50,7 +49,7 @@
                 <ContentPresenter x:Name="CP"/>
             </Grid>
         </ControlTemplate>
-     </Shell.Resources>
+    </Shell.Resources>
 
     <Shell.FlyoutContentTemplate>
         <DataTemplate>

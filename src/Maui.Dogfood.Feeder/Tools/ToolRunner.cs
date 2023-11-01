@@ -6,6 +6,22 @@ namespace Maui.Dogfood.Feeder;
 
 public static class ToolRunner
 {
+    public static bool Run(string tool, string args,
+        string workingDirectory = "",
+        int timeoutInSeconds = 600)
+    {
+        var info = new ProcessStartInfo(tool, args);
+
+        if (Directory.Exists(workingDirectory))
+            info.WorkingDirectory = workingDirectory;
+
+        var runOutput = Run(info, out int exitCode, timeoutInSeconds);
+        if (exitCode != 0)
+            Console.WriteLine(runOutput);
+
+        return exitCode == 0;
+    }
+
     public static string Run(string tool, string args, out int exitCode,
         string workingDirectory = "",
         int timeoutInSeconds = 600)
